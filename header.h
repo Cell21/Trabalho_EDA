@@ -56,14 +56,40 @@ typedef struct maquina
     struct maquina* next;
 }maquina;
 
-//funcoes
-int addtr(struct trabalho* h, int id);
 
-struct operacao* procuraCabecaOp(struct trabalho* h, int id);
+typedef struct guardarFicheiro
+{
+    int idTr;
+    int idOp;
+    int idMq;
+    int tempoExec;
+
+
+    ficheiro* next;
+}ficheiro;
+
+
+
+
+
+//funcoes adicao
+int addtr(struct trabalho* h, int id);
 
 int addOp(struct trabalho* ht, int idt, int ido);
 
 int addMq(struct trabalho* ht, int idTr, int idOp, int idMq, int TmpMq);
+
+//Funcoes remocao
+int removerOperacao(trabalho* headTr, int idTr, int idOp);
+
+//Funcoes de procura
+trabalho* procuraTrabalho(trabalho* hTr, int idTr);
+
+operacao* procuraOperacao(operacao* hOp, int idOp)
+
+operacao* procuraCabecaOp(struct trabalho* h, int id);
+
+maquina* procuraMaquina(maquina* hMq, int idMq)
 
 maquina* procuraCabecaMq(struct operacao* hOp, int idOp);
 
