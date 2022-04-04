@@ -256,9 +256,6 @@ int removerOperacao(trabalho* headTr, int idTr, int idOp)
 
 
 
-
-
-
 #pragma region Funções de procura
 
 
@@ -502,25 +499,127 @@ maquina* procuraCabecaMq(struct operacao* hOp, int idOp)
 
 #pragma region Funções de alteração
 
-int alterarOperacao(trabalho* headTr, int idTr, int idOp, int idMq)
+int alterarOperacao(trabalho* headTr, int idTr, int idOp)
 {
     operacao* auxOp = NULL;
-    maquina* auxMq = NULL;
-
 
     //Primeiro procurar a operaçao pretendida 
     auxOp = procuraOperacao(headTr, idOp);
-
-    auxMq = procuraMaquina(auxOp, idMq);
-
     
-
-    //apos encontrar a operaçao mostrar as maquinas e perguntar o que pretende mudar
+    if(auxOp == NULL)
+        return 1;
+    else
+    {
+        auxOp->idOp = idOp;
+        return 2;
+    }
 }
 #pragma endregion
 
 
 #pragma region Contas
+
+tempo* tempomax(trabalho* headtr, int idTr)
+{
+    trabalho* auxTr = NULL;
+    operacao* auxOp = NULL;
+    maquina* auxMq = NULL;
+    
+    tempo* headtempo = NULL;
+    tempo* auxtempo = NULL;
+    tempo* addtempo = NULL;
+
+    int temptime = 0, tempid = 0;
+     
+
+
+    auxOp = procuraCabecaOp(headtr, idTr);
+    
+    /**
+     * @brief este ciclo percorre todas as maquinas de uma operaçao 
+     *          para determinar qual delas tem o maximo de tempo
+     *        E percorre todas as operações de modo a fazer uma lista 
+     *          que contem todos os ids das maquina para as usar depois
+     */
+    while(auxOp->next == NULL)
+    {
+        
+        auxMq = auxOp->headMq;
+        tempid = auxOp->idOp;
+
+        /**
+         * @brief   Este ciclo passa as maquinas todas de uma operacao retirando a 
+         *          que tem mais unidades de tempo de execuçao
+         * 
+         */
+        while(auxMq->next == NULL)
+        {
+            if (temptime < auxMq->tempEx)    
+                temptime = auxMq->tempEx; 
+            
+            
+            auxMq = auxMq->next;
+
+        }
+
+            addtempo->id = tempid;
+            addtempo->tempo = temptime;
+            addtempo->next = NULL;
+            
+            auxtempo = headtempo;
+
+            if(auxtempo == NULL)
+                headtempo = addtempo;
+            else
+            {
+                while(auxtempo->next != NULL)
+                    auxtempo = auxtempo->next;
+
+                auxtempo = addtempo;
+            
+            }
+
+        auxOp = auxOp->next;
+    }
+    
+    return headtempo;
+}
+
+
+
+
+
+/**
+ * @brief Esta funcao escreve o tempo maximo necessario e todas as operacoes feitas
+ *      
+ * 
+ * @param headTempo 
+ * @return true 
+ * @return false 
+ */
+bool escreveTempoMax(trabalho* headtr, int idtr)
+{
+    tempo* headTempo = tempomax(headtr, idtr);
+    tempo* aux = NULL;
+    
+    int total = 0;
+    
+    aux = headTempo;
+
+    while(aux->next != NULL)
+    {
+        printf("Operacao -> %d\nTempo de execucao -> %d", aux->id, aux->tempo);
+        printf("\n");
+
+        total += aux->tempo;
+
+        aux = aux->next;
+
+    }
+
+    printf("Tempo maximo para completar o trabalho: %d", total);
+}
+
 
 
 

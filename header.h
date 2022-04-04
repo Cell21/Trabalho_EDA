@@ -69,7 +69,14 @@ typedef struct guardarFicheiro
 }ficheiro;
 
 
+typedef struct tempMax
+{
+    int id;
+    int tempo;
 
+    tempo* next;
+
+}tempo;
 
 
 //funcoes adicao
@@ -85,12 +92,25 @@ int removerOperacao(trabalho* headTr, int idTr, int idOp);
 //Funcoes de procura
 trabalho* procuraTrabalho(trabalho* hTr, int idTr);
 
-operacao* procuraOperacao(operacao* hOp, int idOp)
+operacao* procuraOperacao(operacao* hOp, int idOp);
 
 operacao* procuraCabecaOp(struct trabalho* h, int id);
 
-maquina* procuraMaquina(maquina* hMq, int idMq)
+maquina* procuraMaquina(maquina* hMq, int idMq);
 
 maquina* procuraCabecaMq(struct operacao* hOp, int idOp);
 
+//Funcoes de calculo
+bool escreveTempoMax(trabalho* headtr, int idtr);
+
+
+
+
+//Funcoes de tratamento dos ficheiros
+ficheiro* constroiStructFicheiro(trabalho* headTr);
+
+
+bool escreveFicheiro(trabalho* headTr);
+
+trabalho* lerFicheiro(trabalho* headTr);
 

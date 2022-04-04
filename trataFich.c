@@ -12,7 +12,13 @@
 #include "header.h"
 
 
-
+/**
+ * @brief esta funcao constroi o ficheiro que e utilizado para
+ *        guardar o process plan no ficheiro
+ * 
+ * @param headTr 
+ * @return ficheiro* 
+ */
 ficheiro* constroiStructFicheiro(trabalho* headTr)
 {
     trabalho* auxTr = NULL;
@@ -81,7 +87,14 @@ ficheiro* constroiStructFicheiro(trabalho* headTr)
 
 
 
-
+/**
+ * @brief esta funcao recebe uma estrutura designada para escrever no 
+ *        ficheiro 
+ * 
+ * @param headTr 
+ * @return true 
+ * @return false 
+ */
 bool escreveFicheiro(trabalho* headTr)
 {
     ficheiro* auxficheiro = NULL;
@@ -113,7 +126,13 @@ bool escreveFicheiro(trabalho* headTr)
 
 
 
-
+/**
+ * @brief esta funçao le o ficheiro criando trabalhos operacoes e maquinas
+ *        de acordo com a existencia de cada um
+ * 
+ * @param headTr 
+ * @return trabalho* 
+ */
 trabalho* lerFicheiro(trabalho* headTr)
 {
     FILE* fp;
@@ -128,22 +147,17 @@ trabalho* lerFicheiro(trabalho* headTr)
     while(fread(&auxFile, sizeof(ficheiro), 1, fp) != NULL)
     {
         
-        //primeiro os trabalhos
-        if(headTr == NULL)
-            addtr(headTr, auxFile->idTr);
-        else if (procuraTrabalho(headTr, auxFile->idTr) != NULL)
-        {
+        //estas funcoes adicionam porem se ja existir elas nao adicionam devolvem um inteiro preciso de receber esses ints?
+        addtr(headTr, auxFile->idTr);
             
-        }
-            
-            
+        addOp(headTr, auxFile->idTr, auxFile->idOp);
+
+        addMq(headTr, auxFile->idTr, auxFile->idOp, auxFile->idMq, auxFile->tempoExec);
+    
     }
     
     
     
-    //BASTANTES IFS????
-
-
-    //Primeiro verifica se o id do trabalho ja existe se nao existir cria esse trabalho
+    return headTr;
 
 }
