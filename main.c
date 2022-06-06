@@ -49,7 +49,7 @@ void main()
             case 5:
                 printf("Qual o id do trabalho e o da operacao que quer alterar? E o id novo.");
                 scanf("%d %d %d", &idt, &ido, &idmq);
-                msg = alterarOperacao(headTr, idt, ido, idmq);
+                msg = alterarOperacao(headTr, idt, ido);
                 break;
             case 6:
                 printf("Qual o trabalho que pretende calcular o tempo?");

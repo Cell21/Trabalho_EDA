@@ -10,9 +10,9 @@
  * 
  */
 
-#include"stdio.h"
-#include"string.h"
-#include"stdlib.h"
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
 #include<stdbool.h>
 
 
@@ -65,7 +65,7 @@ typedef struct guardarFicheiro
     int tempoExec;
 
 
-    ficheiro* next;
+    struct guardarFicheiro* next;
 }ficheiro;
 
 
@@ -74,7 +74,7 @@ typedef struct tempMax
     int id;
     int tempo;
 
-    tempo* next;
+    struct tempMax* next;
 
 }tempo;
 
@@ -92,13 +92,16 @@ int removerOperacao(trabalho* headTr, int idTr, int idOp);
 //Funcoes de procura
 trabalho* procuraTrabalho(trabalho* hTr, int idTr);
 
-operacao* procuraOperacao(operacao* hOp, int idOp);
+operacao* procuraOperacao(trabalho* hOp, int idTr, int idOp);
 
 operacao* procuraCabecaOp(struct trabalho* h, int id);
 
 maquina* procuraMaquina(maquina* hMq, int idMq);
 
 maquina* procuraCabecaMq(struct operacao* hOp, int idOp);
+
+//Funcoes de alteracao
+int alterarOperacao(trabalho* headTr, int idt, int ido);
 
 //Funcoes de calculo
 bool escreveTempoMax(trabalho* headtr, int idtr);

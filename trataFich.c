@@ -104,7 +104,7 @@ bool escreveFicheiro(trabalho* headTr)
     if(headTr == NULL)
         return false;
 
-    if(fp = fopen("Maquinetas.bin", "wb") == NULL);
+    if((fp = fopen("Maquinetas.bin", "wb")) == NULL);
         return false;
 
     
@@ -141,10 +141,10 @@ trabalho* lerFicheiro(trabalho* headTr)
 
     headTr = NULL;
 
-    if(fp = fopen("Maquinetas.bin", "wb") == NULL);
+    if((fp = fopen("Maquinetas.bin", "wb")) == NULL);
         return NULL;
 
-    while(fread(&auxFile, sizeof(ficheiro), 1, fp) != NULL)
+    while(fread(&auxFile, sizeof(ficheiro), 1, fp) != EOF)
     {
         
         //estas funcoes adicionam porem se ja existir elas nao adicionam devolvem um inteiro preciso de receber esses ints?
@@ -153,7 +153,8 @@ trabalho* lerFicheiro(trabalho* headTr)
         addOp(headTr, auxFile->idTr, auxFile->idOp);
 
         addMq(headTr, auxFile->idTr, auxFile->idOp, auxFile->idMq, auxFile->tempoExec);
-    
+
+        auxFile = auxFile->next;
     }
     
     

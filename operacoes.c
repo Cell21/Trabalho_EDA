@@ -101,7 +101,7 @@ int addOp(struct trabalho* ht, int idt, int ido)
         aux = add;
     else
     {
-        if(procuraOperacao(aux, ido) != NULL)
+        if(procuraOperacao(ht, idt, ido) != NULL)
             return 2;//Ja existe essa operaçao
 
         while(aux->next != NULL)
@@ -320,13 +320,14 @@ trabalho* procuraTrabalho(trabalho* hTr, int idTr)
  * @param id -> id da operacao que procuramos
  * @return struct operacao* 
  */
-operacao* procuraOperacao(operacao* hOp, int idOp)
+operacao* procuraOperacao(trabalho* hTr, int idTr, int idOp)
 {
     operacao* auxOp  = NULL;
     
     int flagOp = 0;
     
-    auxOp = hOp;
+    auxOp = procuraCabecaOp(hTr, idTr);
+    
 
     /**
      * @brief este if verifica se existe um trabalho 
@@ -504,7 +505,7 @@ int alterarOperacao(trabalho* headTr, int idTr, int idOp)
     operacao* auxOp = NULL;
 
     //Primeiro procurar a operaçao pretendida 
-    auxOp = procuraOperacao(headTr, idOp);
+    auxOp = procuraOperacao(headTr, idTr, idOp);
     
     if(auxOp == NULL)
         return 1;
